@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shopping list</title>
+		<meta charset="utf-8" />
+	</head>
+	<style>
+	* {
+	margin:0;padding:0;
+	}
+	
+	html {
+		background: #212121;
+		font-family: cursive;
+	}
+	body {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		align-content: center;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+	}
+	
+	.container {
+		height: 100%;
+	}
+	
+	.upper-container {
+		height: 25%;
+		display: grid;
+		align-content: center;
+	}
+	
+	.downer-container {
+		height: 75%;
+	}
+	
+	li {
+		list-style: none;
+		color: #fafafa;
+		font-size: 25px;
+		text-transform: uppercase;
+		display: inline-block;
+		margin: 2px 5px;
+	}
+	
+	li:hover + span.delete-item, span.delete-item:hover
+	{
+		opacity: 1;
+	}
+	
+	span.delete-item {
+		opacity: 0;
+		transition: 0.2s ease;
+		cursor: pointer;
+		font-size: 24px;
+		color: #fff;
+		background: #b71c1c;
+		border-radius: 360px;
+		padding: 2px 10px;
+	}
+	
+	</style>
+	<body>
+		<div class="container">
+			<div class="upper-container">
+				<input type="text" id="item-name" autofocus />
+				<input type="button" id="item-add" value="Add item" onClick="addItem()" />
+			</div>
+			<div class="downer-container">
+				<ul id="shopping-list"></ul>
+			</div>
+		</div>
+	</body>
+	<script>
+	const shopping_list = [];
+	
+	function addItem()
+	{
+		var item = document.getElementById("item-name").value;
+		shopping_list.push(item);
+		listItems();
+		document.getElementById("item-name").value = "";
+	}
+	
+	function listItems()
+	{
+	
+		var listed_items = "";
+		
+		for (var i = 0; i < shopping_list.length; i++)
+		{
+			listed_items+= "<li>"+shopping_list[i]+"</li><span class='delete-item' onClick='deleteItem("+i+")'>X</span><br>";
+		}
+		
+		document.getElementById("shopping-list").innerHTML = listed_items;
+	}
+	
+	function deleteItem(itemId)
+	{
+		shopping_list.splice(itemId, 1);
+		listItems();
+	}
+	</script>
+</html>
